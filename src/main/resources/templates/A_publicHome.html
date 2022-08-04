@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="A_main_css.css" />
+    
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <meta name="google-signin-client_id" content="13143763336-u1jm7m1nonq7g2u2bdlt1rj936cndtsm.apps.googleusercontent.com">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Login</title>
+  </head>
+
+  <div class="nav_bar">
+    <ul>
+      <li>
+        <button
+          href="/login1"
+          class="button_navbar"
+          id="navbtn1h"
+          onClick="loginPage()"
+        >
+          Login
+        </button>
+      </li>
+      <li>
+        <button
+          href="/signup1"
+          class="button_navbar"
+          id="navbtn2h"
+          onClick="signUpPage()"
+        >
+          Sign Up
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+  </div>
+
+  <body>
+    <div id="loginForm" class="contentContainer">
+      <div id="login_formdiv">
+        <div class="custom_form">
+          <form th:action="@{/dashboard}"  method="POST">
+            <h1>Login Form</h1>
+            <ul id="formmsg"></ul>
+            <label for="username">User Name</label><br />
+            <input type="text" id="usernamelogin" name="usernamelogin" />
+            <br />
+            <label for="password">Password</label><br />
+            <input type="password" id="passwordlogin" name="passwordlogin" /><br />
+            <input type="text" id="loginType" name="loginType" style="display:none" /><br>
+            <!--<a th:href="@{/oauth2/authorization/google}">Login With Google</a><br>-->
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <a th:href="@{/logout_custom}" onclick="signOut();">Sign out</a>
+            <button type="submit" id="btnsubmit">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="initialSignUpForm" class="contentContainer centerTable">
+      <div class="custom_form" >
+        <h1>Sign Up</h1>
+        <label for="username">User Name</label><br />
+        <input
+          name="username"
+          type="text"
+          id="username"
+          placeholder="Set a username"
+          required
+        />
+        <br />
+        <label for="email">Email</label><br />
+        <input
+          name="email"
+          type="text"
+          id="email"
+          placeholder="Enter email"
+          required
+        />
+        <br />
+        <label for="password">Password</label><br />
+        <input
+          name="password"
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          required
+        /><br>
+        <label for="rb1">Role</label><br/>
+        <input
+          name="rb1"
+          type="radio"
+          id="rb1"
+          value="ROLE_ADMIN"
+          required
+        />Admin
+        <input
+          name="rb1"
+          type="radio"
+          id="rb12"
+          value="ROLE_USER"
+          required
+        />Customer
+        <br />
+        <button type="submit" id="initialSignUpBtn">Submit</button>
+      </div>
+    </div>
+  
+
+
+
+    <div id="publicHomePage">
+      <h1>Public HomePage</h1>
+      <div class="contentContainer">
+        <h1>About Section</h1>
+      </div>
+      <div class="contentContainer">
+        <h1>Map</h1>
+      </div>
+      <div class="contentContainer">
+        <h1>Contact</h1>
+      </div>
+    </div>
+
+    <script src="A_main_js_public.js"></script>
+  </body>
+</html>
+
+
+
+
+
+<!--
+    <div id="signUpForm" class="contentContainer">
+      <div class="custom_form">
+        <h1>Sign Up</h1>
+        <label for="name">Name</label><br />
+        <input
+          name="name"
+          type="text"
+          id="name"
+          placeholder="Enter name"
+          required
+        />
+        <br />
+        <label for="username">User Name</label><br />
+        <input
+          name="username"
+          type="text"
+          id="username"
+          placeholder="Set a username"
+          required
+        />
+        <br />
+        <label for="email">Email</label><br />
+        <input
+          name="email"
+          type="text"
+          id="email"
+          placeholder="Enter email"
+          required
+        />
+        <br />
+        <label for="password">Password</label><br />
+        <input
+          name="password"
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          required
+        />
+        <br />
+        <label for="dob">Date of Birth</label><br>
+        <input name="dob" type="date" id="dob" required />
+        <br />
+        <label for="rb1">Role</label><br />
+        <input
+          name="rb1"
+          type="radio"
+          id="rb1"
+          value="ROLE_ADMIN"
+          required
+        />Admin
+        <input
+          name="rb1"
+          type="radio"
+          id="rb12"
+          value="ROLE_USER"
+          required
+        />Customer
+        <br />
+        <label for="address">Address</label><br />
+        <input
+          name="address"
+          type="text"
+          id="address"
+          placeholder="Street,City,State,Pincode"
+          required
+        />
+        <br />
+        <label for="rb2">Profession</label><br />
+        <input
+          name="rb2"
+          type="radio"
+          id="rb2"
+          value="student"
+          required
+        />Student
+        <input
+          name="rb2"
+          type="radio"
+          id="rb22"
+          value="professional"
+          required
+        />Working Professional
+        <br />
+        <label for="profileImage">Profile Picture</label><br />
+        <input name="profileImage" type="file" id="profileImage" required />
+
+        <button type="submit" id="signUpBtn">Submit</button>
+      </div>
+    </div>
+  -->

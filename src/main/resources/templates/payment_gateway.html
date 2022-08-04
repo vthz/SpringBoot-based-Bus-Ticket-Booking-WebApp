@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Ticket | Payment </title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="icon" href="tab_icon.png">
+</head>
+
+<div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+</div>
+
+<div class="nav_bar">
+    <ul >
+        <li><a href="/user/index"> Home </a></li>
+        <li><a href="/user/renew"> Renew </a></li>
+        <li><a href="/user/bookticket"> Book Ticket </a></li>
+        <li><a href="/user/payment"> Payment </a></li>
+        <li><a href="/logout"> Logout </a></li>
+      </ul>
+</div>
+
+<body>
+    <div class="newuser_class">
+        <h1>Payment Gateway</h1><br>
+        <form th:action="@{/user/download}" method="get" id="form1"></form>
+            <input type="radio" name="rb1" value="paid" checked="checked" > Paid
+            <br>
+            <input type="radio" name="rb1" value="notpaid" > Not Paid<br>
+        </form>
+        <button type="submit" form="form1" value="Submit">Submit</button>
+    </div>
+
+
+
+</body>
+
+</html>

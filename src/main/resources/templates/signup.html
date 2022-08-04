@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>This is Signup Page</title>
+        <link rel="stylesheet" href="main_style.css">
+    </head>
+
+    <div class="top_heading">
+        <b>Bus Ticket Booking System</b>
+    </div>
+
+    <div class="nav_bar">
+        <ul >
+            <li><a href="/"> Home </a></li>
+            <li><a href="/signup"> SignUp </a></li>
+          </ul>
+    </div>
+
+    <body style="margin-top:00px">
+        <section>
+            <div class="container">
+                <div clas="row">
+                    <div class="col-md-8 offset-md-2">
+                        
+                        <div class="my-card">
+                            <h1 class="text-center">Register Here</h1>
+                            <form action="" th:action="@{/do_register}" method="POST" th:object="${user}" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="name" placeholder="Enter name" required th:value="${user.name}"/>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="username">User Name</label>
+                                    <input name="username" type="text" class="form-control" id="username" placeholder="Set a username" required th:value="${user.username}"/>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input name="email" type="text" class="form-control" id="email" placeholder="Enter email" required th:value="${user.email}"/>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter password" required th:value="${user.password}"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="dob">Date of Birth</label>
+                                    <input name="dob" type="date" class="form-control" id="dob" required/>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="rb1">Role</label>
+                                    <input name="rb1" type="radio" class="form-control" id="rb1" value="ROLE_ADMIN" required/>Admin
+                                    <input name="rb1" type="radio" class="form-control" id="rb1" value="ROLE_USER" required/>Customer
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input name="address" type="text" class="form-control" id="address" placeholder="Street,City,State,Pincode" required th:value="${user.address}"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="rb2">Profession</label>
+                                    <input name="rb2" type="radio" class="form-control" id="rb2" value="student" required/>Student
+                                    <input name="rb2" type="radio" class="form-control" id="rb2" value="professional" required/>Working Professional
+                                </div>
+                                <br>
+                                </div>
+                                    <label for="profileImage">Profile Picture</label>
+                                    <input name="profileImage" type="file" class="form-control" id="profileImage" required/>
+                                </div>
+                                <br>
+
+                                <button type="submit" class="btn bg-primary text-white">Submit</button>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

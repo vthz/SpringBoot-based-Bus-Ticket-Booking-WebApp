@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Ticket | New User </title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="icon" href="tab_icon.png">
+</head>
+
+<div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+</div>
+
+<div class="nav_bar">
+    <ul >
+        <li><a href="/"> Home </a></li>
+        <li><a href="/user/renew"> Renew </a></li>
+        <li><a href="/user/bookticket"> Book Ticket </a></li>
+        <li><a href="/user/download"> Download </a></li>
+        <li><a href="/signin"> Login </a></li>
+        <li><a href="/signup"> SignUp </a></li>
+      </ul>
+</div>
+
+<body>
+    <div class="newuser_class">
+        <form action="/action_page.php" method="get" id="form1"></form>
+            <h1>New User Details:</h1><br>
+            <form action="/action_page.php" method="get" id="nameform">
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" name="fname"><br>
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" name="lname"><br>
+                <label for="img">Upload image:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+              </form>
+        </form>
+        <button type="submit" form="form1" value="Submit">Submit</button>
+    </div>
+
+
+
+</body>
+
+</html>

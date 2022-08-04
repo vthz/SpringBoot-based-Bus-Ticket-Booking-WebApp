@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | Available Trips </title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="icon" href="tab_icon.png">
+
+
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+    </style>
+
+
+</head>
+
+<div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+</div>
+
+<div class="nav_bar">
+  <ul >
+    <li><a href="/admin/listout"> Home </a></li >
+    <li><a href="/admin/newtrips"> Add New Trips </a></li>
+    <li><a href="/admin/history"> Available Trips </a></li>
+    <li><a href="/logout"> Logout </a></li>
+  </ul>
+</div>
+
+<body>
+    <div class="admin_class_header">
+      <h1>Available Trips</h1>
+        <table border="1">
+            <thead>
+              <tr>
+                <th>TRIP ID</th>
+                <th>TRIP ORIGIN</th>
+                <th>TRIP DESTINATION</th>
+                <th>TRIP DISTANCE (KM)</th>
+                <th>TRIP PRICE (Rs)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="t:${triplist}">
+                <td th:text="${t.id}"></td>
+                <td th:text="${t.origin}"></td>
+                <td th:text="${t.destination}"></td>
+                <td th:text="${t.distance}"></td>
+                <td th:text="${t.price}"></td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <h1>Filter By</h1>
+          <form th:action="@{/admin/showAlljourney}" method="POST" th:object="${filter}">
+              <li class="inside_option">
+                <input type="radio" name="rb1" value="origin" id="rb1"> Origin 
+                <select name="placeo" id="placeo">
+                  <option th:each="t:${triplist}"
+                        th:text="${t.origin}">
+                  </option>  
+                </select>
+                <input type="radio" name="rb1" value="destination" id="rb2" > Destination
+                <select name="placed" id="placed">
+                  <option th:each="t:${triplist}"
+                        th:text="${t.destination}">
+                  </option>  
+                </select>
+              </li>
+              <br>
+              <input type="submit" value="Filter">
+          </form>
+          <label id="testlabel"></label>
+
+    </div>
+<!--
+    <script>
+      $(function() {
+        $('[name="rb1"]').on('change', function() { // whenever user changes his selection fire an event
+
+        $select = $('[name="place"]');  // select element
+        $select.attr('disabled', true);  // make all select disabled(if previously one of them wasn't)
+        $(this).parent().siblings('[name="place"]').attr('disabled', false); // make the closest one active -- here I've first chose parent({label}) and then its sibling({[name="course_date"]})
+        });
+      });
+    </script>
+  -->
+</body>
+
+</html>

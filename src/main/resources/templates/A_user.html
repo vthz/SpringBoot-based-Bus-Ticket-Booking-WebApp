@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage | Bus Ticket Booking System</title>
+    <link rel="stylesheet" href="A_main_css.css" />
+    
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <meta name="google-signin-client_id" content="13143763336-u1jm7m1nonq7g2u2bdlt1rj936cndtsm.apps.googleusercontent.com">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <div id="usernav_bar">
+    <div class="nav_bar">
+      <ul>
+        <li>
+          <button
+            href="/index1"
+            class="button_navbar"
+            id="usernavbtn1"
+            onClick="userHomePage()"
+          >
+            Dashboard
+          </button>
+        </li>
+        <li>
+          <button
+            href="/renew1"
+            class="button_navbar"
+            id="usernavbtn2"
+            onClick="renewPage()"
+          >
+            Renew
+          </button>
+        </li>
+        <li>
+          <button
+            href="/bookticket1"
+            class="button_navbar"
+            id="usernavbtn3"
+            onClick="bookTicket()"
+          >
+            Book Ticket
+          </button>
+        </li>
+        <li>
+          <a href="/logout_custom" class="button_navbar" id="navbtn4" style="display:none">
+            Logout
+          </a>
+        </li>
+        <li>
+          <button href="#" onclick="signOut();" class="button_navbar">Sign out</button>
+        </li>
+        <li class="logged_in">
+          <button id="navbtn5"  onclick="profileSection()" style="width:fit-content;background:white;color:black;border:2px solid whitesmoke;box-shadow: 0 0 10px rgba(0, 0, 0, 1);"><label for="loggedinuser">Welcome</label> <label id="loggedinuser" style="color:red"></label>         <img src="" id="nav_bar_profile_pic" class="navBarProfilePic"></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+  </div>
+
+  <body>
+    <div id="userDashboard" class="contentContainer">
+      <div class="admin_class_header">
+        <h1>Journey History</h1>
+        <table border="1" id="userDashboardTable" class="centerTable">
+          <thead>
+            <tr>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Price</th>
+              <th>Journey Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="admin_class_header">
+          <h1>Renewal Status</h1>
+          <label for="passValidityLabel"> Days left:</label><label id="passValidityLabel"></label>
+      </div>
+    </div>
+
+    <div id="userRenewPage" class="contentContainer">
+      <div class="custom_class">
+          <h1>Renew Your Bus Pass:</h1>
+          <br />
+          <input type="radio" name="renewradio1" id="renewradio1" value="six" class="renewRadioClass" /> 6 Months
+          <br />
+          <input type="radio" name="renewradio1" id="renewradio2" value="twelve" class="renewRadioClass" /> 12 Months<br />
+          <button type="submit" value="Submit" id="renewBtn" onclick="proceedRenew()">Renew Pass</button>
+      </div>
+    </div>
+
+    
+  <div id="bookTicketForm" class="contentContainer">
+    <h1>Book Ticket</h1>
+    <label for="origininput">Origin:</label><input type="text" id="origininput" list="originDatalist"required/>
+    <label for="destinationinput">Destination:</label><input type="text" id="destinationinput" list="destinationDatalist"required/><br>
+
+    <datalist id="originDatalist">
+    </datalist>
+    <datalist id="destinationDatalist">
+    </datalist>
+    <label for="priceLabel">Total Ticket Price:</label><label id="priceLabel">0</label><br>
+    <button id="checkTicketValidityBtn" onclick="proceedBookticket()" class="buttonScheme">Check Availability</button><br>
+    <button id="bookticketBtn" onclick="bookTicketFinal()" style="display:none;background-color:green">Book Ticket</button>
+    <br>
+    <br>
+<!--class="downloadTicket"-->
+    <div  class="custom_form_ticket" style="width: 300px;height:350px">
+      <div class="topFooter">
+        <label id="tripIDLabel" class="ticketDetailsClass" style="color:red"></label>
+        <label id="dateLabel" class="ticketDetailsClass" ></label>
+      </div>
+      <div class="ticketHeader"><p>Bus Ticket</p></div>
+      <div class="custom_form_ticket" style="width:250px">
+        <label id="passenger">Passenger:</label><label id="passengerLabelT" class="ticketDetailsClass"></label><br>
+        <label id="ori">Origin:</label><label id="originLabelT" class="ticketDetailsClass"></label><br>
+        <label id="desti">Destination:</label><label id="destinationLabelT" class="ticketDetailsClass"></label><br>
+        <label id="dist">Distance:</label><label id="distanceLabelT" class="ticketDetailsClass"></label><br>
+        <label id="priceTicket">Distance:</label><label id="priceLabelT" class="ticketDetailsClass"></label><br>
+      </div>
+    </div>
+    <div id="editor"></div>
+    <button id="cmd" onclick="CreatePDFfromHTML()" >Download Ticket</button>
+  </div>
+
+  <div id="allTripsTableDiv" class="contentContainer">
+    <div class="filter_card">
+      <h1>Filter by:</h1>
+      <li class="inside_option">
+        <input type="radio" name="filterbyradio" value="origin" id="filterbyradio" onchange="checkDropDown()" /> Origin
+        <select name="placeo" id="placeo" onchange="checkDropDown()" >
+          <option></option>
+        </select>
+        <input type="radio" name="filterbyradio" value="destination" id="filterbyradio" onchange="checkDropDown()" />
+        Destination
+        <select name="placed" id="placed" onchange="checkDropDown()" >
+          <option></option>
+        </select>
+      </li>
+      <br />
+      <!--<input type="submit" value="Filter" onclick="sortTripsTable()" />-->
+    </div>
+
+
+    <h1>Available Trips</h1>
+    <table border="1" id="allTripsTable">
+      <thead bgcolor="grey">
+        <tr>
+          <th>TRIP ID</th>
+          <th>TRIP ORIGIN</th>
+          <th>TRIP DESTINATION</th>
+          <th>TRIP DISTANCE (KM)</th>
+          <th>TRIP PRICE (Rs)</th>
+          <th>ADMIN ID</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="paymentWindow" class="contentContainer">
+    <h1> Payment Window</h1>
+    <label for="amtLabel">You have to pay: </label><label id="amtLabel" style="color:green"></label><br>
+    <br><label for="itemLabel"> Purchased Item:</label></label><label id="itemLabel" style="color:green"></label><br>
+    <!--<button id="paymentBtn" onclick="finalizePayment()" >Proceed With Payment</button><br>-->
+
+    <form method="post"  action="/pay">
+      <div class="custom_form">
+          <h3>PayPal Payment</h3>
+          <label>Accepted Cards</label>
+          <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+          </div>
+          <label for="price">Total</label><br>
+          <input type="text" id="price" name="price" readonly="readonly"><br>
+          <label for="currencyPaypal">Currency</label><br>
+          <input type="text" id="currency" name="currency" placeholder="Enter Currency" value="USD" readonly="readonly"><br>
+          <label for="method">Payment Method</label><br>
+          <input type="text" id="method" name="method" placeholder="Payment Method" value="paypal" readonly="readonly"><br>
+          <label for="intent">Intent</label><br>
+          <input type="text" id="intent" name="intent" value="sale" readonly="readonly"><br>
+          <label for="description">Payment Description</label><br>
+          <input type="text" id="description" name="description" placeholder="Payment Description" value="Description" readonly="readonly"><br>
+
+      </div>
+
+     <!-- <input type="submit" value="Continue to checkout" >-->
+     <button value="Continue to Checkout">Continue to Checkout</button>
+  </form>
+  </div>
+
+  <div id="profileSection" class="contentContainer">
+    <h1>Profile Section</h1>
+    <div class="custom_form" style="margin-top:40px;margin-bottom:40px;margin-left:auto">
+        <img src="" id="profileImageCanvas" style="width:100px;height:100px;">
+    </div>
+    <div class="custom_form">
+      <h1>Basic Details</h1>
+      <label id="msgBox1" style="display:none" class="acknowledgementBox"><p id="bdp1" class="successful"> Updation Successful</p></label><br>
+      <label id="msgBox2" style="display:none" class="acknowledgementBox"><p id="bdp2" class="unsuccessful"> Updation Unsuccessful</p></label><br>
+      <label for="name">Name</label><br />
+      <input
+        name="name"
+        type="text"
+        id="name"
+        placeholder="Enter name"
+        required
+      />
+      <br />
+      <label for="dob">Date of Birth</label><br>
+      <input name="dob" type="date" id="dob" required />
+      <br />
+    
+      <label for="address">Address</label><br />
+      <input
+        name="address"
+        type="text"
+        id="address"
+        placeholder="Street,City,State,Pincode"
+        required
+      />
+      <br />
+      <label for="rb2">Profession</label><br />
+      <input
+        name="rb2"
+        type="radio"
+        id="rb2"
+        value="student"
+        required
+      />Student
+      <input
+        name="rb2"
+        type="radio"
+        id="rb22"
+        value="professional"
+        required
+      />Working Professional
+      <br />
+      
+      <div class="custom_form" style="margin-top:50px">
+        <label for="profileImage">Profile Picture</label><br />
+        <input id="fileupload" type="file" name="fileupload" /> 
+        <button id="upload-button" onclick="uploadFile()"> Upload </button>
+      </div>
+      <br>
+      <button id="clickToEdit" onclick="makeEditable()" >Click to Edit</button><br>
+      <button type="submit" id="basicDetailBtn">Submit</button><br>
+    </div>
+
+    
+  </div>
+
+
+    <script src="A_main_js.js"></script>
+    <script src="A_main_js_public.js"></script>
+  </body>
+</html>

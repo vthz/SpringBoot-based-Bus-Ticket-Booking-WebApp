@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://ww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Ticket | Download </title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="icon" href="tab_icon.png">
+</head>
+
+<div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+</div>
+
+<div class="nav_bar">
+    <ul >
+        <li><a href="/user/"> Home </a></li>
+        <li><a href="/user/renew"> Renew </a></li>
+        <li><a href="/user/bookticket"> Book Ticket </a></li>
+        <li><a href="/user/payment"> Payment </a></li>
+        <li><a href="/logout"> Logout </a></li>
+      </ul>
+</div>
+<body>
+    <div class="newuser_class">
+        <h1>Summary</h1><br>
+           <table border="1" id="BusTicket">
+               <thead>
+                   <th>Customer Name</th>
+                   <th>Origin</th>
+                   <th>Destination</th>
+                   <th>Price</th>
+               </thead>
+               <tbody>
+                   <td><p id="uname" th:text="${uname}"></p></td>
+                   <td><p id="origin" th:text="${origin}"></p></td>
+                   <td><p id="destination" th:text="${destination}"></p></td>
+                   <td><p id="price" th:text="${price}"></p></td>
+               </tbody>
+           </table>
+        <!--<button type="submit" form="form1" value="Submit">Download Ticket</button>-->
+        <a href="/user/booknow">Book Now</a><br>
+        <!--<a href="/user/download">Download Ticket</a>-->
+        <br>
+        <input type="button" id="btnExport" value="Download" onclick="Export()" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        function Export() {
+            html2canvas(document.getElementById('BusTicket'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Ticket.pdf");
+                }
+            });
+        }
+    </script>
+    </div>
+
+
+
+</body>
+
+</html>

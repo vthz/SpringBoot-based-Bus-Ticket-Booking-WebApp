@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>This is Signup Page</title>
+        <link rel="stylesheet" href="main_style.css">
+    </head>
+
+    <div class="top_heading">
+        <b>Bus Ticket Booking System</b>
+    </div>
+
+    <div class="nav_bar">
+      
+    </div>
+
+    <body style="margin-top:00px">
+        <section>
+            <div class="container">
+                <div clas="row">
+                    <div class="col-md-8 offset-md-2">
+                        
+                        <div class="my-card">
+                            <h1 class="text-center">Register Here</h1>
+                            <form action="" th:action="@{/process_image}" method="POST" th:object="${user}">
+                                <div class="form-group">
+                                    <label for="ProfileImage">Profile Picture</label>
+                                    <input type="file" name="ProfileImage"/>
+                                </div>
+
+                                <button type="submit" class="btn bg-primary text-white">Submit</button>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

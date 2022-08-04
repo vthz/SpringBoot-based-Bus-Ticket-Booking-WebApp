@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage | Bus Ticket Booking System</title>
+    <link rel="stylesheet" href="A_main_css.css" />
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <meta name="google-signin-client_id" content="13143763336-u1jm7m1nonq7g2u2bdlt1rj936cndtsm.apps.googleusercontent.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+  <div class="nav_bar">
+    <ul>
+      <li>
+        <button
+          href="/listout"
+          class="button_navbar"
+          id="navbtn1"
+          onClick="homepage()"
+        >
+          Home
+        </button>
+      </li>
+      <li>
+        <button
+          href="/listout"
+          class="button_navbar"
+          id="navbtn2"
+          onClick="allTrips()"
+        >
+          Available Trips
+        </button>
+      </li>
+      <li>
+        <button
+          href="/listout"
+          class="button_navbar"
+          id="navbtn3"
+          onClick="newtrip()"
+        >
+          New Trip
+        </button>
+      </li>
+      <li>
+        <a href="/logout_custom" class="button_navbar" id="navbtn4" style="display:none">
+          Logout
+        </a>
+      </li>
+      <li>
+        <button href="#" onclick="signOut();" class="button_navbar">Sign out</button>
+      </li>
+      <li class="logged_in">
+        <button id="navbtn5"  onclick="profileSectionAdmin()" style="width:fit-content;background:white;color:black;border:2px solid whitesmoke;box-shadow: 0 0 10px rgba(0, 0, 0, 1);"><label for="loggedinuser">Welcome</label> <label id="loggedinuser" style="color:red"></label>         <img src="" id="nav_bar_profile_pic" class="navBarProfilePic"></button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+  </div>
+
+  <body>
+    <div id="login_formdiv" class="contentContainer">
+      <div class="custom_form">
+        <h1>Login Form</h1>
+        <ul id="formmsg"></ul>
+        <label for="username">User Name</label><br />
+        <input type="text" id="username" />
+        <br />
+        <label for="password">Password</label><br />
+        <input type="password" id="password" /><br />
+
+        <button type="submit" id="btnsubmit">Login</button>
+      </div>
+    </div>
+    <br />
+
+    <div id="home_pagediv" class="contentContainer">
+      <h1>Registered Users</h1>
+      <!--<button id="btn1" onclick="loadtrips()">Load Up</button>
+      <button id="btn1" onclick="resetTable()">Reset</button>-->
+      <table id="userTable" class="centerTable">
+        <thead bgcolor="grey">
+          <td>User Id</td>
+          <td>Name</td>
+          <td>User Name</td>
+          <td>User Email</td>
+          <td>User Role</td>
+          <td>Address</td>
+          <td>Valid Till</td>
+          <td>Date Of Birth</td>
+          <td>Profession</td>
+          <td>User Image</td>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="newtrip_formdiv" class="contentContainer">
+      <br />
+      <h1>Add New Trip</h1>
+      <!--<button id="btnaddnew" onClick="unhideForm()">Add New Trip</button>-->
+      <div class="custom_form" id="newtripform">
+        <label id="msgBoxTrip1" style="display:none" class="acknowledgementBox"><p id="bdp1" class="successful"> New Trip has been Added</p></label><br>
+        <label id="msgBoxTrip2" style="display:none" class="acknowledgementBox"><p id="bdp2" class="unsuccessful"> Unsuccessful</p></label><br>
+        <label for="origin">Origin</label><br />
+        <input
+          name="origin"
+          type="text"
+          class="form-control"
+          id="origin"
+          aria-describedby="namehelp"
+          placeholder="Enter origin"
+          required
+        /><br />
+        <label for="desti">Destination</label><br />
+        <input
+          name="destination"
+          type="text"
+          class="form-control"
+          id="desti"
+          aria-describedby="namehelp"
+          placeholder="Enter destination"
+          required
+        /><br />
+        <label for="dist">Distance</label><br />
+        <input
+          name="distance"
+          type="text"
+          class="form-control"
+          id="dist"
+          aria-describedby="namehelp"
+          placeholder="Enter total distance"
+          required
+        /><br />
+        <label for="price">Price</label><br />
+        <input
+          name="price"
+          type="text"
+          class="form-control"
+          id="price"
+          aria-describedby="namehelp"
+          placeholder="Enter price"
+          required
+        />
+
+        <button type="submit" id="newtripsubmit">Submit</button>
+      </div>
+    </div>
+
+
+   
+
+    <div id="allTripsTableDiv" class="contentContainer">
+
+
+      <div class="filter_card">
+        <h1>Filter by:</h1>
+        <li class="inside_option">
+          <input type="radio" name="filterbyradio" value="origin" id="filterbyradio" onchange="checkDropDown()" /> Origin
+          <select name="placeo" id="placeo" onchange="checkDropDown()" >
+            <option></option>
+          </select>
+          <input type="radio" name="filterbyradio" value="destination" id="filterbyradio" onchange="checkDropDown()" />
+          Destination
+          <select name="placed" id="placed" onchange="checkDropDown()" >
+            <option></option>
+          </select>
+        </li>
+        <br />
+        <!--<input type="submit" value="Filter" onclick="sortTripsTable()" />-->
+      </div>
+
+
+      <h1>Available Trips</h1>
+      <table  id="allTripsTable" class="centerTable">
+        <thead bgcolor="grey" style="width:fit-content">
+          <tr>
+            <th>Trip ID</th>
+            <th>Trip Origin</th>
+            <th>Trip Destination</th>
+            <th>Trip Distance (KM)</th>
+            <th>Trip Price (Rs)</th>
+            <th>Admin ID</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      
+    </div>
+
+
+    <div id="profileSection" class="contentContainer">
+      <h1>Profile Section</h1>
+      <div class="custom_form" style="margin-top:40px;margin-bottom:40px;margin-left:auto">
+          <img src="" id="profileImageCanvas" style="width:100px;height:100px;">
+      </div>
+      <div class="custom_form">
+        <h1>Basic Details</h1>
+        <label id="msgBox1" style="display:none" class="acknowledgementBox"><p id="bdp1" class="successful"> Updation Successful</p></label><br>
+        <label id="msgBox2" style="display:none" class="acknowledgementBox"><p id="bdp2" class="unsuccessful"> Updation Unsuccessful</p></label><br>
+        <label for="name">Name</label><br />
+        <input
+          name="name"
+          type="text"
+          id="name"
+          placeholder="Enter name"
+          required
+        />
+        <br />
+        <label for="dob">Date of Birth</label><br>
+        <input name="dob" type="date" id="dob" required />
+        <br />
+      
+        <label for="address">Address</label><br />
+        <input
+          name="address"
+          type="text"
+          id="address"
+          placeholder="Street,City,State,Pincode"
+          required
+        />
+        <br />
+        <label for="rb2">Profession</label><br />
+        <input
+          name="rb2"
+          type="radio"
+          id="rb2"
+          value="student"
+          required
+        />Student
+        <input
+          name="rb2"
+          type="radio"
+          id="rb22"
+          value="professional"
+          required
+        />Working Professional
+        <br />
+        
+        <div class="custom_form" style="margin-top:50px">
+          <label for="profileImage">Profile Picture</label><br />
+          <input id="fileupload" type="file" name="fileupload" /> 
+          <button id="upload-button" onclick="uploadFile()"> Upload </button>
+        </div>
+        <br>
+        <button id="clickToEdit" onclick="makeEditable()" >Click to Edit</button><br>
+        <button type="submit" id="basicDetailBtn">Submit</button><br>
+      </div>
+  
+      
+    </div>
+
+    <script src="A_main_js.js"></script>
+    <script src="A_main_js_public.js"></script>
+  </body>
+</html>

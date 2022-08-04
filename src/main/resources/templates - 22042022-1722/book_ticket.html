@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://ww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Ticket | Book Ticket </title>
+    <link rel="stylesheet" href="main_style.css">
+    <link rel="icon" href="tab_icon.png">
+</head>
+
+<div class="top_heading">
+    <b>Bus Ticket Booking System</b>
+</div>
+
+<div class="nav_bar">
+  <ul >
+    <li><a href="/user/"> Home </a></li>
+    <li><a href="/user/renew"> Renew </a></li>
+    <li><a href="/user/bookticket"> Book Ticket </a></li>
+    <li><a href="/user/payment"> Payment </a></li>
+    <li><a href="/logout"> Logout </a></li>
+  </ul>
+</div>
+
+<body>
+    <div class="newuser_class">
+        <h1>Book Ticket</h1><br>
+        <form action=""  th:action="@{/user/calculate}" method="POST">
+            <label for="start">Origin:</label>
+            <select name="start" id="start" onchange="checkDropdownSelection()">
+              <option th:each="place:${listorigin}"
+                      th:text="${place.origin}">
+              </option>
+                      
+            </select>
+            <br><br>
+            <label for="end">Destination:</label>
+            <select name="end" id="end" onchange="checkDropdownSelection()">
+                <option th:each="place:${listorigin}"
+                      th:text="${place.destination}">
+                </option>
+              </select>
+              <br><br>
+
+            <!--<label>Expected Cost(Rs):</label><label id="price_label">0</label><br>-->
+
+            <input type="submit" value="Proceed">
+          </form>
+    </div>
+
+    <script>
+      function checkDropdownSelection() {
+         var from = document.getElementById("start");
+         var to = document.getElementById("end");
+
+         if (from.value == to.value) {
+          alert("Origin and Destination can't be same!");
+         }
+         else{
+          document.getElementById("price_label").innerHTML = "newLabel";
+         }
+      }
+
+    
+   </script>
+
+</body>
+
+</html>
